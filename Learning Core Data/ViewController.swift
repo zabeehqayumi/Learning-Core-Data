@@ -23,7 +23,7 @@ class ViewController: UITableViewController {
         view.backgroundColor = .white
         navigationController?.navigationBar.barTintColor = UIColor(red: 21/255, green: 101/255, blue: 192/255, alpha: 1)
         navigationController?.navigationBar.tintColor = .white
-        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Added", style: .plain, target: self, action: #selector(addItem))
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Add", style: .plain, target: self, action: #selector(addItem))
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: cellID)
         
         
@@ -84,6 +84,13 @@ class ViewController: UITableViewController {
         let item = items[indexPath.row]
         cell.textLabel?.text = item.value(forKeyPath: "itemName") as? String
         return cell
+    }
+    
+    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete{
+            items.remove(at: indexPath.row)
+            self.tableView.reloadData()
+        }
     }
 
 
